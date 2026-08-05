@@ -293,33 +293,27 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                name: "Ankit Pandey",
+                name: "Jitendra Kumar",
                 role: "Founder & CEO",
                 image: "👨‍💼",
                 bio: "10+ years in digital transformation",
                 gradient: "from-blue-600 to-cyan-500"
               },
               {
-                name: "Priya Sharma",
-                role: "Tech Lead",
+                name: " Rocky Raj",
+                role: " Sales Manager",
                 image: "👩‍💻",
-                bio: "Full-stack developer, Next.js expert",
+                bio: "10+ year experience in sales and marketing",
                 gradient: "from-purple-600 to-pink-500"
               },
               {
-                name: "Rahul Verma",
-                role: "UI/UX Designer",
+                name: " Ankit pandey",
+                role: "Tech lead",
                 image: "🎨",
-                bio: "Designing beautiful user experiences",
+                bio: "Full stack developer with a passion for design",
                 gradient: "from-orange-500 to-red-500"
               },
-              {
-                name: "Neha Gupta",
-                role: "Digital Marketing Head",
-                image: "📊",
-                bio: "SEO & Performance marketing expert",
-                gradient: "from-green-600 to-emerald-500"
-              }
+               
             ].map((member, index) => (
               <motion.div
                 key={index}
