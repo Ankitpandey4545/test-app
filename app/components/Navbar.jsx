@@ -6,14 +6,23 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
-import ConsultationModal from "./ConsultationModal";  // ✅ Import
+import ConsultationModal from "./ConsultationModal";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showServices, setShowServices] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);  // ✅ State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Check if on specific pages (white background pages)
+  const isAboutPage = pathname === "/about";
+  const isPortfolioPage = pathname === "/portfolio";
+  const isContactPage = pathname === "/contact";
+  const isServicesPage = pathname.startsWith("/services");
+
+  // Combined condition for white background pages
+  const isWhiteBgPage = isAboutPage || isPortfolioPage || isContactPage || isServicesPage;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,28 +55,36 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-          isScrolled
-            ? "bg-white/80 backdrop-blur-2xl shadow-xl py-4"
-            : "bg-transparent py-6"
+          isWhiteBgPage || isScrolled
+            ? "bg-white/95 backdrop-blur-2xl shadow-xl py-3"
+            : "bg-transparent py-5"
         }`}
       >
-        {/* Navbar content... (same as before) */}
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/images/logo/logo10.png"
-              alt="Gigoria Technologies"
-              width={180}
-              height={60}
-              priority
-              className="h-20 w-auto"
-            />
+          {/* Logo - Improved */}
+          <Link href="/" className="flex items-center flex-shrink-0 group">
+            <div className="relative">
+              {/* Glow Effect */}
+              <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+              
+              <Image
+                src="/images/logo/logo10.png"
+                alt="Gigoria Technologies"
+                width={240}
+                height={80}
+                priority
+                className="h-28 w-auto object-contain transition-all duration-300 group-hover:scale-105"
+                style={{
+                  filter: isWhiteBgPage || isScrolled 
+                    ? "brightness(1)" 
+                    : "brightness(0) invert(1)"
+                }}
+              />
+            </div>
           </Link>
 
           {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center gap-10">
-            {/* Nav items... */}
             {navItems.map((item) => {
               const active = pathname === item.link;
               return (
@@ -80,7 +97,7 @@ export default function Navbar() {
                     className={`font-medium transition-all duration-300 ${
                       active
                         ? "text-[#D4AF37]"
-                        : isScrolled
+                        : isWhiteBgPage || isScrolled
                         ? "text-gray-800 group-hover:text-[#0D5C46]"
                         : "text-white group-hover:text-[#D4AF37]"
                     }`}
@@ -104,7 +121,7 @@ export default function Navbar() {
             >
               <button
                 className={`group flex items-center gap-1 font-medium transition-all duration-300 ${
-                  isScrolled
+                  isWhiteBgPage || isScrolled
                     ? "text-gray-800 hover:text-[#0D5C46]"
                     : "text-white hover:text-[#D4AF37]"
                 }`}
@@ -150,24 +167,24 @@ export default function Navbar() {
             </div>
           </nav>
 
-          {/* CTA Button - Updated */}
+       
           <div className="hidden lg:block">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setIsModalOpen(true)}  // ✅ Open Modal
+              onClick={() => setIsModalOpen(true)}
               className="rounded-full bg-[#0D5C46] px-7 py-3 font-semibold text-white shadow-xl transition hover:bg-[#0B4A38]"
             >
               Get Free Consultation
             </motion.button>
           </div>
 
-          {/* Mobile Menu */}
+   
           <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden">
             {isOpen ? (
-              <X size={28} color={isScrolled ? "#111" : "#fff"} />
+              <X size={28} color={isWhiteBgPage || isScrolled ? "#111" : "#fff"} />
             ) : (
-              <Menu size={28} color={isScrolled ? "#111" : "#fff"} />
+              <Menu size={28} color={isWhiteBgPage || isScrolled ? "#111" : "#fff"} />
             )}
           </button>
         </div>
@@ -186,30 +203,44 @@ export default function Navbar() {
                 <Link
                   href="/"
                   onClick={() => setIsOpen(false)}
-                  className="border-b border-gray-200 py-4 text-lg font-medium hover:text-[#0D5C46]"
+                  className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
+                    pathname === "/" ? "text-[#D4AF37]" : "text-gray-800 hover:text-[#0D5C46]"
+                  }`}
                 >
                   Home
                 </Link>
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.link}
-                    onClick={() => setIsOpen(false)}
-                    className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
-                      pathname === item.link
-                        ? "text-[#D4AF37]"
-                        : "text-gray-800 hover:text-[#0D5C46]"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-                {/* Mobile Services */}
+                <Link
+                  href="/about"
+                  onClick={() => setIsOpen(false)}
+                  className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
+                    pathname === "/about" ? "text-[#D4AF37]" : "text-gray-800 hover:text-[#0D5C46]"
+                  }`}
+                >
+                  About Us
+                </Link>
+                <Link
+                  href="/portfolio"
+                  onClick={() => setIsOpen(false)}
+                  className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
+                    pathname === "/portfolio" ? "text-[#D4AF37]" : "text-gray-800 hover:text-[#0D5C46]"
+                  }`}
+                >
+                  Portfolio
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
+                    pathname === "/contact" ? "text-[#D4AF37]" : "text-gray-800 hover:text-[#0D5C46]"
+                  }`}
+                >
+                  Contact
+                </Link>
                 <button
                   onClick={() => setShowServices(!showServices)}
                   className="flex items-center justify-between border-b border-gray-200 py-4 text-left text-lg font-medium"
                 >
-                  Services
+                  <span className="text-gray-800">Services</span>
                   <ChevronDown
                     size={20}
                     className={`transition-transform duration-300 ${

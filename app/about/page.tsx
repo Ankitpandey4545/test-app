@@ -295,23 +295,16 @@ export default function AboutPage() {
               {
                 name: "Jitendra Kumar",
                 role: "Founder & CEO",
-                image: "👨‍💼",
+                image: "/images/team/jitendra.jpg",
                 bio: "10+ years in digital transformation",
                 gradient: "from-blue-600 to-cyan-500"
               },
               {
-                name: " Rocky Raj",
-                role: " Sales Manager",
-                image: "👩‍💻",
+                name: "Rocky Raj",
+                role: "Sales Manager",
+                image: "/images/team/rocky.jpg",
                 bio: "10+ year experience in sales and marketing",
                 gradient: "from-purple-600 to-pink-500"
-              },
-              {
-                name: " Ankit pandey",
-                role: "Tech lead",
-                image: "🎨",
-                bio: "Full stack developer with a passion for design",
-                gradient: "from-orange-500 to-red-500"
               },
                
             ].map((member, index) => (
@@ -324,9 +317,18 @@ export default function AboutPage() {
                 className="group text-center bg-gray-50 rounded-3xl p-8 hover:shadow-xl transition-all hover:-translate-y-2"
               >
                 <div className="relative w-32 h-32 mx-auto">
+                  {/* Glow Effect */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${member.gradient} rounded-full opacity-20 group-hover:opacity-40 transition-opacity`}></div>
-                  <div className={`w-32 h-32 mx-auto bg-gradient-to-br ${member.gradient} rounded-full flex items-center justify-center text-5xl group-hover:scale-110 transition-transform relative`}>
-                    {member.image}
+                  
+                  {/* Image */}
+                  <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white shadow-lg group-hover:scale-110 transition-transform relative">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      width={128}
+                      height={128}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mt-4">{member.name}</h3>
@@ -378,20 +380,17 @@ export default function AboutPage() {
               {
                 title: "Expert Team",
                 description: "Skilled professionals with years of industry experience.",
-                icon: "👨‍💻",
-                gradient: "from-white/10 to-white/5"
+                icon: "👨‍💻"
               },
               {
                 title: "Custom Solutions",
                 description: "Tailored digital solutions built specifically for your business.",
-                icon: "🎯",
-                gradient: "from-white/10 to-white/5"
+                icon: "🎯"
               },
               {
                 title: "End-to-End Support",
                 description: "From strategy to deployment and beyond, we're with you.",
-                icon: "🤝",
-                gradient: "from-white/10 to-white/5"
+                icon: "🤝"
               }
             ].map((item, index) => (
               <motion.div
