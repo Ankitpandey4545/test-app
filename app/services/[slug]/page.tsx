@@ -20,7 +20,31 @@ import {
   TrendingUp
 } from "lucide-react";
 
-const servicesData = {
+// ✅ Types Define करें
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Service {
+  title: string;
+  slug: string;
+  description: string;
+  icon: React.ReactNode;
+  gradient: string;
+  price: string;
+  rating: number;
+  reviews: number;
+  features: string[];
+  benefits: string[];
+  process: string[];
+  faqs: FAQ[];
+  technologies: string[];
+  relatedServices: string[];
+}
+
+// ✅ Services Data with proper typing
+const servicesData: Record<string, Service> = {
   "website-development": {
     title: "Website Development",
     slug: "website-development",
@@ -245,7 +269,14 @@ const servicesData = {
 
 export const dynamic = 'force-dynamic';
 
-export default async function ServiceDetailPage({ params }) {
+// ✅ Props type define करें
+interface PageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+export default async function ServiceDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const service = servicesData[slug];
 
@@ -254,7 +285,7 @@ export default async function ServiceDetailPage({ params }) {
   }
 
   const relatedServices = service.relatedServices
-    ?.map((relatedSlug) => servicesData[relatedSlug])
+    ?.map((relatedSlug: string) => servicesData[relatedSlug])
     .filter(Boolean) || [];
 
   return (
@@ -335,7 +366,7 @@ export default async function ServiceDetailPage({ params }) {
                 Key Features
               </h2>
               <div className="grid sm:grid-cols-2 gap-4">
-                {service.features.map((feature, i) => (
+                {service.features.map((feature: string, i: number) => (
                   <div key={i} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl">
                     <CheckCircle size={20} className="text-[#0D5C46] dark:text-[#D4AF37] flex-shrink-0 mt-0.5" />
                     <span className="text-gray-700 dark:text-gray-300">{feature}</span>
@@ -350,7 +381,7 @@ export default async function ServiceDetailPage({ params }) {
                 Benefits
               </h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                {service.benefits.map((benefit, i) => (
+                {service.benefits.map((benefit: string, i: number) => (
                   <div key={i} className="flex items-center gap-3 p-3 bg-white/50 dark:bg-gray-800/50 rounded-xl">
                     <div className="w-8 h-8 rounded-full bg-[#0D5C46] flex items-center justify-center flex-shrink-0">
                       <CheckCircle size={16} className="text-white" />
@@ -364,7 +395,7 @@ export default async function ServiceDetailPage({ params }) {
             <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl">
               <h2 className="text-2xl font-bold dark:text-white mb-6">Our Process</h2>
               <div className="space-y-6">
-                {service.process.map((step, i) => (
+                {service.process.map((step: string, i: number) => (
                   <div key={i} className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#0D5C46] to-[#D4AF37] text-white flex items-center justify-center font-bold flex-shrink-0 shadow-lg">
                       {i + 1}
@@ -381,7 +412,7 @@ export default async function ServiceDetailPage({ params }) {
             <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl">
               <h2 className="text-2xl font-bold dark:text-white mb-6">FAQs</h2>
               <div className="space-y-4">
-                {service.faqs.map((faq, i) => (
+                {service.faqs.map((faq: FAQ, i: number) => (
                   <details key={i} className="border-b border-gray-100 dark:border-gray-700 pb-4 group">
                     <summary className="font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-[#0D5C46] dark:hover:text-[#D4AF37] transition-colors flex items-center justify-between">
                       <span>{faq.question}</span>
@@ -408,7 +439,7 @@ export default async function ServiceDetailPage({ params }) {
             <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-xl">
               <h3 className="text-lg font-bold dark:text-white mb-4">Technologies We Use</h3>
               <div className="flex flex-wrap gap-2">
-                {service.technologies.map((tech, i) => (
+                {service.technologies.map((tech: string, i: number) => (
                   <span key={i} className="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-sm text-gray-700 dark:text-gray-300">
                     {tech}
                   </span>
@@ -434,7 +465,7 @@ export default async function ServiceDetailPage({ params }) {
               Other Services You Might Like
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {relatedServices.map((related) => (
+              {relatedServices.map((related: Service) => (
                 <Link key={related.slug} href={`/services/${related.slug}`} className="group bg-white dark:bg-gray-700 rounded-2xl p-6 hover:bg-gradient-to-r hover:from-[#0D5C46] hover:to-[#D4AF37] transition-all hover:-translate-y-1 shadow-md">
                   <div className="text-3xl mb-3">{related.icon}</div>
                   <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-white transition-colors">
