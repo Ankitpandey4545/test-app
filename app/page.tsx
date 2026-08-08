@@ -7,6 +7,8 @@ import Success from "./components/Success/Success";
 import Industries from "./components/Industries/Industries";
 import Process from "./components/Process/Process";
 import FAQ from "./components/FAQ/FAQ";
+import RatingSystem from "./components/RatingSystem";
+import BookingSystem from "./components/BookingSystem"; // ✅ Import
 
 export default function Home() {
   return (
@@ -21,6 +23,8 @@ export default function Home() {
         <Industries />
         <Process />
         <FAQ />
+        <RatingSystem />
+        <BookingSystem /> {/* ✅ Add here */}
       </main>
     </>
   );

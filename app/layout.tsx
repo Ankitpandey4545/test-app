@@ -3,6 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer/Footer";
+import WhatsAppWidget from "./components/WhatsAppWidget";
+import CustomCursor from "./components/CustomCursor";
+import PerformanceBadge from "./components/PerformanceBadge";
+import LiveChat from "./components/LiveChat";
+import VisitorCounter from "./components/VisitorCounter";
+ 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +23,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Gigoria Technologies",
   description: "Digital Solutions for Your Business",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -33,6 +42,14 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
+        
+        {/* Floating Widgets */}
+        <CustomCursor />
+        <WhatsAppWidget />
+        <PerformanceBadge />
+        <LiveChat />
+        <VisitorCounter />
+        
       </body>
     </html>
   );

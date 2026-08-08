@@ -1,0 +1,78 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About Us",
+    "portfolio": "Portfolio",
+    "contact": "Contact",
+    "services": "Services",
+    "consultation": "Get Free Consultation"
+  },
+  "hero": {
+    "badge": "🚀 Digital Solutions",
+    "title": "We Build",
+    "subtitle": "We combine strategy, design and technology to create premium digital products that elevate your brand and accelerate growth.",
+    "cta": "Get Started",
+    "services": "Our Services",
+    "stats": {
+      "projects": "Projects Delivered",
+      "satisfaction": "Client Satisfaction",
+      "experience": "Years Experience",
+      "support": "Support Available"
+    }
+  },
+  "services": {
+    "badge": "✦ What We Offer",
+    "title": "Our Core Services",
+    "subtitle": "Comprehensive digital solutions tailored to your business needs",
+    "learnMore": "Learn More",
+    "popular": "POPULAR",
+    "startingFrom": "Starting from"
+  },
+  "whyChoose": {
+    "badge": "❤️ Why Choose Us",
+    "title": "Why Trust Us",
+    "fastDelivery": "Fast Delivery",
+    "quality": "Quality Guaranteed",
+    "growth": "Growth Focused",
+    "dataDriven": "Data Driven"
+  },
+  "portfolio": {
+    "badge": "🎯 Our Portfolio",
+    "title": "Featured Projects",
+    "viewProject": "View Project",
+    "learnMore": "Learn More"
+  },
+  "success": {
+    "projects": "Projects Delivered",
+    "satisfaction": "Client Satisfaction",
+    "experience": "Years Experience",
+    "support": "Support Available"
+  },
+  "industries": {
+    "badge": "🏢 Industries",
+    "title": "We Serve Various Industries"
+  },
+  "process": {
+    "badge": "📋 How We Work",
+    "title": "Our Process",
+    "discovery": "Discovery",
+    "strategy": "Strategy",
+    "execution": "Execution",
+    "growth": "Growth"
+  },
+  "faq": {
+    "badge": "❓ FAQ",
+    "title": "Frequently Asked Questions",
+    "q1": "How long does it take to see results?",
+    "a1": "Results vary by service. SEO takes 3-6 months, while ads show results within weeks.",
+    "q2": "Do you offer free consultations?",
+    "a2": "Yes, we offer a free 30-minute consultation to discuss your business needs.",
+    "q3": "Can I cancel anytime?",
+    "a3": "Yes, all our services can be canceled with a 30-day notice.",
+    "q4": "Do you provide ongoing support?",
+    "a4": "Absolutely! We provide dedicated support for all our clients."
+  },
+  "footer": {
+    "rights": "All Rights Reserved"
+  }
+}

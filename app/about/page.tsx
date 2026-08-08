@@ -296,12 +296,12 @@ export default function AboutPage() {
                 name: "Jitendra Kumar",
                 role: "Founder & CEO",
                 image: "/images/team/jitendra.jpg",
-                bio: "10+ years in digital transformation",
+                bio: "16+ years in digital transformation",
                 gradient: "from-blue-600 to-cyan-500"
               },
               {
                 name: "Rocky Raj",
-                role: "Sales Manager",
+                role: "Branch  Manager",
                 image: "/images/team/rocky.jpg",
                 bio: "10+ year experience in sales and marketing",
                 gradient: "from-purple-600 to-pink-500"

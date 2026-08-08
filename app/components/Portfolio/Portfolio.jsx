@@ -1,113 +1,242 @@
-"use client";
+ "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import ProjectCard from "./ProjectCard";
-import { portfolioData } from "./portfolioData";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, ExternalLink, Github } from "lucide-react";
+import SearchBar from "../SearchBar";
+
+const projects = [
+  {
+    title: "E-Commerce Platform",
+    category: "Web Development",
+    image: "/images/portfolio/ecommerce.jpg",
+    link: "/portfolio/ecommerce",
+    description: "Full-featured online store with payment integration",
+    tech: ["Next.js", "Stripe", "Tailwind"],
+    live: "https://example.com",
+    github: "https://github.com"
+  },
+  {
+    title: "Corporate Website",
+    category: "Web Design",
+    image: "/images/portfolio/corporate.jpg",
+    link: "/portfolio/corporate",
+    description: "Modern corporate website with CMS",
+    tech: ["React", "WordPress", "SCSS"],
+    live: "https://example.com",
+    github: "https://github.com"
+  },
+  {
+    title: "Mobile App",
+    category: "App Development",
+    image: "/images/portfolio/mobile-app.jpg",
+    link: "/portfolio/mobile-app",
+    description: "Cross-platform mobile application",
+    tech: ["React Native", "Firebase", "Expo"],
+    live: "https://example.com",
+    github: "https://github.com"
+  },
+  {
+    title: "SEO Campaign",
+    category: "Digital Marketing",
+    image: "/images/portfolio/seo.jpg",
+    link: "/portfolio/seo",
+    description: "Complete SEO strategy and implementation",
+    tech: ["SEO", "Analytics", "Content"],
+    live: "https://example.com",
+    github: "https://github.com"
+  },
+  {
+    title: "Social Media Branding",
+    category: "Social Media",
+    image: "/images/portfolio/social.jpg",
+    link: "/portfolio/social",
+    description: "Comprehensive social media management",
+    tech: ["Social Media", "Design", "Strategy"],
+    live: "https://example.com",
+    github: "https://github.com"
+  },
+  {
+    title: "E-Learning Platform",
+    category: "Web Development",
+    image: "/images/portfolio/elearning.jpg",
+    link: "/portfolio/elearning",
+    description: "Interactive online learning platform",
+    tech: ["Next.js", "MongoDB", "WebRTC"],
+    live: "https://example.com",
+    github: "https://github.com"
+  }
+];
 
 export default function Portfolio() {
+  const [filteredProjects, setFilteredProjects] = useState(projects);
+
   return (
-    <section className="relative overflow-hidden bg-[#F8FAFC] py-28">
-
-      {/* Background Effects */}
-
-      <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-[#0D5C46]/10 blur-[120px]" />
-
-      <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-[#D4AF37]/10 blur-[130px]" />
-
-      <div className="relative mx-auto max-w-7xl px-6">
-
-        {/* Heading */}
-
+    <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: .7 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="mx-auto max-w-3xl text-center"
+          className="text-center mb-12"
         >
-
-          <span className="inline-flex rounded-full border border-[#0D5C46]/20 bg-[#0D5C46]/5 px-5 py-2 text-sm font-semibold uppercase tracking-[4px] text-[#0D5C46]">
-            Featured Projects
+          <span className="inline-flex items-center gap-2 text-[#0D5C46] dark:text-[#D4AF37] font-semibold text-sm uppercase tracking-wider bg-[#0D5C46]/10 dark:bg-[#D4AF37]/10 px-4 py-2 rounded-full">
+            🎯 Our Portfolio
           </span>
-
-          <h2 className="mt-7 text-5xl font-black leading-tight text-gray-900 md:text-6xl">
-            Some of Our
-            <span className="block text-[#0D5C46]">
-              Recent Work
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-4">
+            Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0D5C46] to-[#D4AF37]">Projects</span>
           </h2>
-
-          <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-gray-600">
-            We create high-performing websites, scalable web applications,
-            eCommerce platforms and digital solutions that help businesses
-            grow faster and achieve measurable results.
+          <p className="text-gray-600 dark:text-gray-400 mt-3 max-w-2xl mx-auto">
+            Explore our latest work and see how we've helped businesses grow
           </p>
-
         </motion.div>
 
-        {/* Portfolio Grid */}
-
-        <div className="mt-20 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-
-          {portfolioData.map((project, index) => (
-            <ProjectCard
-              key={project.title}
-              project={project}
-              index={index}
-            />
-          ))}
-
+        {/* Search Bar */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <SearchBar
+            items={projects}
+            onFilter={setFilteredProjects}
+            placeholder="🔍 Search projects by title, category or technology..."
+          />
         </div>
 
-        {/* Bottom CTA */}
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2"
+              >
+                {/* Image Container with Overlay */}
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0D5C46] dark:text-[#D4AF37] shadow-lg">
+                    {project.category}
+                  </div>
 
+                  {/* Hover Actions */}
+                  <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <Link
+                      href={project.link}
+                      className="bg-white dark:bg-gray-800 text-[#0D5C46] dark:text-[#D4AF37] px-6 py-2 rounded-full font-semibold shadow-xl hover:scale-105 transition-transform flex items-center gap-2"
+                    >
+                      <ExternalLink size={16} /> View Project
+                    </Link>
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full font-semibold hover:bg-white/30 transition"
+                      >
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-[#0D5C46] dark:group-hover:text-[#D4AF37] transition-colors">
+                      {project.title}
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-400 hover:text-gray-600 dark:hover:text-white transition"
+                        >
+                          <Github size={18} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
+                  
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {project.tech.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="text-xs bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={project.link}
+                    className="inline-flex items-center gap-2 text-[#0D5C46] dark:text-[#D4AF37] font-medium mt-4 hover:gap-3 transition-all group"
+                  >
+                    Learn More <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            // No Results
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="col-span-full text-center py-16"
+            >
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">No Projects Found</h3>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">
+                Try adjusting your search terms or browse our full portfolio.
+              </p>
+              <button
+                onClick={() => setFilteredProjects(projects)}
+                className="mt-4 text-[#0D5C46] dark:text-[#D4AF37] font-semibold hover:underline transition"
+              >
+                Clear Search
+              </button>
+            </motion.div>
+          )}
+        </div>
+
+        {/* View All Projects CTA */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: .2 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-20 flex justify-center"
+          className="text-center mt-12"
         >
-                      <motion.button
-            whileHover={{
-              scale: 1.05,
-              y: -3,
-            }}
-            whileTap={{
-              scale: 0.96,
-            }}
-            className="group inline-flex items-center gap-3 rounded-full bg-[#0D5C46] px-8 py-4 font-semibold text-white shadow-2xl transition-all duration-300 hover:bg-[#0B4A38]"
+          <Link
+            href="/portfolio/all"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0D5C46] to-[#1a8a6a] text-white px-8 py-3 rounded-full font-semibold hover:shadow-xl transition-all hover:scale-105"
           >
-            View All Projects
-
-            <ArrowRight
-              size={20}
-              className="transition-transform duration-300 group-hover:translate-x-2"
-            />
-          </motion.button>
+            View All Projects <ArrowRight size={18} />
+          </Link>
         </motion.div>
-
-        {/* Decorative Line */}
-
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="mx-auto mt-20 h-[2px] w-48 origin-left rounded-full bg-gradient-to-r from-[#0D5C46] via-[#D4AF37] to-transparent"
-        />
-
-        {/* Floating Background Elements */}
-
-        <div className="pointer-events-none absolute left-16 top-40 h-5 w-5 rounded-full bg-[#D4AF37]/40 blur-sm" />
-
-        <div className="pointer-events-none absolute right-20 top-1/2 h-6 w-6 rounded-full bg-[#0D5C46]/30 blur-sm" />
-
-        <div className="pointer-events-none absolute bottom-16 left-1/2 h-4 w-4 rounded-full bg-[#D4AF37]/50 blur-sm" />
-
       </div>
     </section>
   );
 }
-       

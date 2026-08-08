@@ -1,4 +1,4 @@
- {
+{
   "name": "test-app",
   "version": "0.1.0",
   "private": true,
@@ -9,11 +9,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "framer-motion": "^11.3.31",
+    "framer-motion": "^11.18.2",
+    "i18next": "^26.3.6",
     "lucide-react": "^0.453.0",
     "next": "^16.3.0",
+    "next-i18next": "^16.0.10",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-i18next": "^17.0.11",
     "react-icons": "^5.4.0"
   },
   "devDependencies": {

@@ -19,7 +19,7 @@ export default function Navbar() {
   const isAboutPage = pathname === "/about";
   const isPortfolioPage = pathname === "/portfolio";
   const isContactPage = pathname === "/contact";
-  const isServicesPage = pathname.startsWith("/services");
+  const isServicesPage = pathname?.startsWith("/services");
 
   // Combined condition for white background pages
   const isWhiteBgPage = isAboutPage || isPortfolioPage || isContactPage || isServicesPage;
@@ -56,17 +56,15 @@ export default function Navbar() {
         transition={{ duration: 0.6 }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           isWhiteBgPage || isScrolled
-            ? "bg-white/95 backdrop-blur-2xl shadow-xl py-3"
+            ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl shadow-xl py-3"
             : "bg-transparent py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo - Improved */}
+          {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0 group">
             <div className="relative">
-              {/* Glow Effect */}
               <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
-              
               <Image
                 src="/images/logo/logo10.png"
                 alt="Gigoria Technologies"
@@ -98,7 +96,7 @@ export default function Navbar() {
                       active
                         ? "text-[#D4AF37]"
                         : isWhiteBgPage || isScrolled
-                        ? "text-gray-800 group-hover:text-[#0D5C46]"
+                        ? "text-gray-800 dark:text-gray-200 group-hover:text-[#0D5C46] dark:group-hover:text-[#D4AF37]"
                         : "text-white group-hover:text-[#D4AF37]"
                     }`}
                   >
@@ -122,7 +120,7 @@ export default function Navbar() {
               <button
                 className={`group flex items-center gap-1 font-medium transition-all duration-300 ${
                   isWhiteBgPage || isScrolled
-                    ? "text-gray-800 hover:text-[#0D5C46]"
+                    ? "text-gray-800 dark:text-gray-200 hover:text-[#0D5C46] dark:hover:text-[#D4AF37]"
                     : "text-white hover:text-[#D4AF37]"
                 }`}
               >
@@ -142,10 +140,10 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.96 }}
                     transition={{ duration: 0.25 }}
-                    className="absolute left-0 top-12 w-80 rounded-3xl bg-white shadow-2xl border border-gray-100 overflow-hidden"
+                    className="absolute left-0 top-12 w-80 rounded-3xl bg-white dark:bg-gray-800 shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden"
                   >
                     <div className="p-5">
-                      <h4 className="text-lg font-semibold text-[#0D5C46] mb-4">
+                      <h4 className="text-lg font-semibold text-[#0D5C46] dark:text-[#D4AF37] mb-4">
                         Our Services
                       </h4>
                       <div className="space-y-3">
@@ -153,7 +151,7 @@ export default function Navbar() {
                           <Link
                             key={service.slug}
                             href={`/services/${service.slug}`}
-                            className="block rounded-lg px-3 py-2 text-gray-700 transition-all duration-300 hover:bg-[#0D5C46]/10 hover:text-[#0D5C46]"
+                            className="block rounded-lg px-3 py-2 text-gray-700 dark:text-gray-300 transition-all duration-300 hover:bg-[#0D5C46]/10 dark:hover:bg-[#D4AF37]/10 hover:text-[#0D5C46] dark:hover:text-[#D4AF37]"
                             onClick={() => setShowServices(false)}
                           >
                             {service.name}
@@ -167,26 +165,28 @@ export default function Navbar() {
             </div>
           </nav>
 
-       
-          <div className="hidden lg:block">
+          {/* Right Side - CTA Button */}
+          <div className="hidden lg:flex items-center gap-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsModalOpen(true)}
-              className="rounded-full bg-[#0D5C46] px-7 py-3 font-semibold text-white shadow-xl transition hover:bg-[#0B4A38]"
+              className="rounded-full bg-[#0D5C46] dark:bg-[#1a8a6a] px-7 py-3 font-semibold text-white shadow-xl transition hover:bg-[#0B4A38] dark:hover:bg-[#0D5C46]"
             >
               Get Free Consultation
             </motion.button>
           </div>
 
-   
-          <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden">
-            {isOpen ? (
-              <X size={28} color={isWhiteBgPage || isScrolled ? "#111" : "#fff"} />
-            ) : (
-              <Menu size={28} color={isWhiteBgPage || isScrolled ? "#111" : "#fff"} />
-            )}
-          </button>
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center gap-3">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? (
+                <X size={28} color={isWhiteBgPage || isScrolled ? "#111" : "#fff"} />
+              ) : (
+                <Menu size={28} color={isWhiteBgPage || isScrolled ? "#111" : "#fff"} />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu Content */}
@@ -197,14 +197,16 @@ export default function Navbar() {
               animate={{ opacity: 1, height: "100vh" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.35 }}
-              className="lg:hidden bg-white overflow-hidden"
+              className="lg:hidden bg-white dark:bg-gray-900 overflow-hidden"
             >
               <div className="flex flex-col px-6 py-8">
                 <Link
                   href="/"
                   onClick={() => setIsOpen(false)}
-                  className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
-                    pathname === "/" ? "text-[#D4AF37]" : "text-gray-800 hover:text-[#0D5C46]"
+                  className={`border-b border-gray-200 dark:border-gray-700 py-4 text-lg font-medium transition ${
+                    pathname === "/" 
+                      ? "text-[#D4AF37]" 
+                      : "text-gray-800 dark:text-gray-200 hover:text-[#0D5C46] dark:hover:text-[#D4AF37]"
                   }`}
                 >
                   Home
@@ -212,8 +214,10 @@ export default function Navbar() {
                 <Link
                   href="/about"
                   onClick={() => setIsOpen(false)}
-                  className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
-                    pathname === "/about" ? "text-[#D4AF37]" : "text-gray-800 hover:text-[#0D5C46]"
+                  className={`border-b border-gray-200 dark:border-gray-700 py-4 text-lg font-medium transition ${
+                    pathname === "/about" 
+                      ? "text-[#D4AF37]" 
+                      : "text-gray-800 dark:text-gray-200 hover:text-[#0D5C46] dark:hover:text-[#D4AF37]"
                   }`}
                 >
                   About Us
@@ -221,8 +225,10 @@ export default function Navbar() {
                 <Link
                   href="/portfolio"
                   onClick={() => setIsOpen(false)}
-                  className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
-                    pathname === "/portfolio" ? "text-[#D4AF37]" : "text-gray-800 hover:text-[#0D5C46]"
+                  className={`border-b border-gray-200 dark:border-gray-700 py-4 text-lg font-medium transition ${
+                    pathname === "/portfolio" 
+                      ? "text-[#D4AF37]" 
+                      : "text-gray-800 dark:text-gray-200 hover:text-[#0D5C46] dark:hover:text-[#D4AF37]"
                   }`}
                 >
                   Portfolio
@@ -230,20 +236,22 @@ export default function Navbar() {
                 <Link
                   href="/contact"
                   onClick={() => setIsOpen(false)}
-                  className={`border-b border-gray-200 py-4 text-lg font-medium transition ${
-                    pathname === "/contact" ? "text-[#D4AF37]" : "text-gray-800 hover:text-[#0D5C46]"
+                  className={`border-b border-gray-200 dark:border-gray-700 py-4 text-lg font-medium transition ${
+                    pathname === "/contact" 
+                      ? "text-[#D4AF37]" 
+                      : "text-gray-800 dark:text-gray-200 hover:text-[#0D5C46] dark:hover:text-[#D4AF37]"
                   }`}
                 >
                   Contact
                 </Link>
                 <button
                   onClick={() => setShowServices(!showServices)}
-                  className="flex items-center justify-between border-b border-gray-200 py-4 text-left text-lg font-medium"
+                  className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 py-4 text-left text-lg font-medium"
                 >
-                  <span className="text-gray-800">Services</span>
+                  <span className="text-gray-800 dark:text-gray-200">Services</span>
                   <ChevronDown
                     size={20}
-                    className={`transition-transform duration-300 ${
+                    className={`transition-transform duration-300 text-gray-800 dark:text-gray-200 ${
                       showServices ? "rotate-180" : ""
                     }`}
                   />
@@ -265,7 +273,7 @@ export default function Navbar() {
                               setIsOpen(false);
                               setShowServices(false);
                             }}
-                            className="block text-gray-600 hover:text-[#0D5C46]"
+                            className="block text-gray-600 dark:text-gray-400 hover:text-[#0D5C46] dark:hover:text-[#D4AF37]"
                           >
                             {service.name}
                           </Link>
@@ -281,7 +289,7 @@ export default function Navbar() {
                     setIsOpen(false);
                     setIsModalOpen(true);
                   }}
-                  className="mt-8 rounded-full bg-[#0D5C46] py-4 font-semibold text-white shadow-lg"
+                  className="mt-8 rounded-full bg-[#0D5C46] dark:bg-[#1a8a6a] py-4 font-semibold text-white shadow-lg"
                 >
                   Get Free Consultation
                 </motion.button>
