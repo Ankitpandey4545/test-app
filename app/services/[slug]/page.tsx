@@ -19,8 +19,9 @@ import {
   Award,
   TrendingUp
 } from "lucide-react";
+import { ReactNode } from "react";
 
-// ✅ Types Define करें
+// ✅ Types
 interface FAQ {
   question: string;
   answer: string;
@@ -30,7 +31,7 @@ interface Service {
   title: string;
   slug: string;
   description: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   gradient: string;
   price: string;
   rating: number;
@@ -43,7 +44,7 @@ interface Service {
   relatedServices: string[];
 }
 
-// ✅ Services Data with proper typing
+// ✅ Service Data with Type
 const servicesData: Record<string, Service> = {
   "website-development": {
     title: "Website Development",
@@ -269,7 +270,7 @@ const servicesData: Record<string, Service> = {
 
 export const dynamic = 'force-dynamic';
 
-// ✅ Props type define करें
+// ✅ Page Props Type
 interface PageProps {
   params: Promise<{
     slug: string;
@@ -278,15 +279,15 @@ interface PageProps {
 
 export default async function ServiceDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const service = servicesData[slug];
+  const service: Service | undefined = servicesData[slug];
 
   if (!service) {
     notFound();
   }
 
-  const relatedServices = service.relatedServices
+  const relatedServices: Service[] = service.relatedServices
     ?.map((relatedSlug: string) => servicesData[relatedSlug])
-    .filter(Boolean) || [];
+    .filter((item: Service | undefined): item is Service => Boolean(item)) || [];
 
   return (
     <main className="min-h-screen pt-20 bg-white dark:bg-gray-900">
